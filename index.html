@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Gen</title>
+    <link rel="stylesheet" href="styler.css">
+</head>
+<body>
+    <h1>Sudoku</h1>
+    <h2>-This project uses technologies such as HTML, Javascript and CSS(for styling)</h2>
+
+    <div class="renderRegion">
+        <!-- js functions -->
+        <div id="region1">
+            <div class="buttons">
+                <button id="Lcontrol" onclick="solveSudoku()">Create Tile</button>
+                <button id="Lcontrol" onclick="generateBoard()">Generate board</button>
+                <button id="Lcontrol" onclick="clearBoard()">Clear board</button>
+            </div>
+        </div>
+        <!-- grid compartments-->
+        <div id="region2">
+            <div id="grid-container"></div>
+        </div>
+        <!--buttons for each tile-->
+        <div id="region3">
+            <h3>Options: </h3>
+            <div class="controls">
+                <button id="Rcontrols">1</button>
+                <button id="Rcontrols">2</button>
+                <button id="Rcontrols">3</button>
+                <button id="Rcontrols">4</button>
+                <button id="Rcontrols">5</button>
+                <button id="Rcontrols">6</button>
+                <button id="Rcontrols">7</button>
+                <button id="Rcontrols">8</button>
+                <button id="Rcontrols">9</button>
+                <button class="span3">CLEAR</button>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

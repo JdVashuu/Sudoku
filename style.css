@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.outfit-fontt {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+body{
+    font-family: "Outfit", sans-serif;
+    height: 100vh;
+    background-color: #EBE3D5;
+}
+
+h1{
+    text-align: center;
+    font-size: 48px;
+}
+
+h3{
+    font-size: 34px;
+}
+
+#region1{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    height: 450px;
+    width: 450px;
+}
+
+.parent{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    outline: 2px solid black;
+
+}
+
+.child{
+    background-color: #ebe0d4;
+    outline: 1px solid darkolivegreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons{
+    margin-right: 50px ;
+    align-items: right;
+    height: 100vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#Lcontrol{
+    height: 70px;
+    width: 250px;
+    margin-left:50px ;
+    background-color: #A67B5B;
+    border-radius: 8px;
+    color: white;    
+    font-size: 30px;
+}
+
+#region2{
+
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#region3{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.controls{
+    height: 186;
+    width: 298px;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    justify-items: center;  
+    align-items: center;
+}
+    
+#Rcontrols{
+    height: 50px;
+    width: 50px;
+    background-color: #A67B5B;
+    border-radius: 8px;
+    color: white;   
+}
+
+.span3{
+    width: 100%;
+    height: 50px;
+    grid-column: span 3;
+    background-color: #A67B5B;
+    border-radius: 8px;
+    color: white;
+}
