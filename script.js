@@ -1,12 +1,12 @@
 const N = 9;
-let K ;
+let K = 47;
 const SRN = 3;
 let mat = new Array(N);
 for(let i = 0; i < N; i++){
     mat[i] = new Array(N);
     mat[i].fill(0);
 }
-console.log(mat); 
+
 
 //creating the board and giving each one of them unique ID
 const board = document.getElementById("grid-container");
@@ -45,21 +45,33 @@ function rng(){
     return Math.floor((Math.random() * 9) + 1);
 }
 
+let activeBoard = false
+
+async function ActuallygenerateBoard() {
+    console.log("Generating the sudoku");
+    fillDiagonal();
+    await fillRemaining(0, 0);
+    removeElement();
+    matrixConvert();
+    console.log("Finished generating sudoku");
+    activeBoard = true;
+
+}
 
 function generateBoard(){
-    console.log("generating the sudoku");
-    fillDiagonal();
-    //fillremaining(0, SRN);
-    //removeElement();
-    matrixConvert();
-    console.log("finished genning sudoku");
+    if(activeBoard == false){
+            ActuallygenerateBoard();
+    }else{
+        return;
+    }
 }
+
+
 
 function fillDiagonal(){
     for(let i = 0; i < N; i += SRN){
         fillBox(i, i);
     }
-    console.log(mat);
 }
 
 function unUsedInBox(rowStart, colStart, num){
@@ -111,19 +123,82 @@ function matrixConvert(){
     for(let i = 0; i < N; i++){
         for(let j = 0; j < N; j++){
             let parent = findParent(i, j);
-            place = (9 * parent)  + (j % 9);
+            let temp = (i % 3) * 3 + (j % 3);
+            place = (9 * parent) + temp + 1;
+
             let value = mat[i][j];
+            if(value === 0) continue;
+
             setValue(place, value);
         }
     }
 }
 
 function findParent(i, j){
-    let row = Math.floor(i/ 3) + 1;
-    let col = Math.floor(j/ 3) + 1;
-    let parent = 3 * (row - 1) + col ;
+    let row = Math.floor(i/ 3);
+    let col = Math.floor(j/ 3);
+    let parent = (3 * (row)) + col;
     return parent;
 }
+
+function checkSafety(i, j, num){
+    return (
+        unUsedInBox(i - (i % SRN), j - (j % SRN), num) &&
+        unUsedInRow(i, num) &&
+        unUsedInCol(j, num)
+    );
+}
+
+async function fillRemaining(i, j) {
+    if (i === N - 1 && j === N - 1) return true;
+
+    if (j === N) {
+        i += 1;
+        j = 0;
+    }
+    if (mat[i][j] !== 0) return fillRemaining(i, j + 1);
+
+    for (let num = 1; num <= N; num++) {
+        if (checkSafety(i, j, num)) {
+            mat[i][j] = num;
+            if (await fillRemaining(i, j + 1)) {
+                return true;
+            }
+            mat[i][j] = 0;
+        }
+    }
+    return false;
+}
+
+
+function removeElement() {
+    let count = K;
+
+    while (count !== 0) {
+        let i = Math.floor(Math.random() * N);
+        let j = Math.floor(Math.random() * N);
+        if (mat[i][j] !== 0) {
+            count--;
+            mat[i][j] = 0;
+        }
+    }
+
+    return;
+}
+
+async function clearBoard(){
+    console.log("Removing elements")
+    for(let i = 0; i < N; i++){
+        mat[i].fill(0);
+    }
+
+    for (let i = 1; i <= N * N; i++) {
+        setValue(i, ""); // Set empty string as the value for each tile
+    }
+    activeBoard = false;
+    //matrixConvert();
+}
+
 
 
 

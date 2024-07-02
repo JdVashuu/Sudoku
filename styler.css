@@ -32,7 +32,7 @@ body{
     flex-direction: column;
     gap: 10px;
 }
-#Lcontrol{
+.Lcontrol{
     height: 70px;
     width: 250px;
     background-color: #A67B5B;
