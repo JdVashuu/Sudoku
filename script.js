@@ -6,7 +6,7 @@ for(let i = 0; i < N; i++){
     mat[i] = new Array(N);
     mat[i].fill(0);
 }
-console.log(mat);
+console.log(mat); 
 
 //creating the board and giving each one of them unique ID
 const board = document.getElementById("grid-container");
@@ -34,9 +34,11 @@ for(let i = 0; i < 9; i++){
 //to set a particular value of the tile
 function setValue(place , value){
     const tile = document.getElementById(place);
-    const val = document.createTextNode(value);
-    tile.appendChild(val);
-    
+    if(tile){
+        tile.textContent= value;
+    }else{
+        console.log(`tile with ID ${place} not found.`)
+    }
 }
 
 function rng(){
@@ -108,17 +110,20 @@ function matrixConvert(){
     let place = 0;
     for(let i = 0; i < N; i++){
         for(let j = 0; j < N; j++){
-            place = (i-1)*3 + j;
+            let parent = findParent(i, j);
+            place = (9 * parent)  + (j % 9);
             let value = mat[i][j];
-            if(value === null){
-                value == 0;
-            }
             setValue(place, value);
         }
     }
-
 }
 
+function findParent(i, j){
+    let row = Math.floor(i/ 3) + 1;
+    let col = Math.floor(j/ 3) + 1;
+    let parent = 3 * (row - 1) + col ;
+    return parent;
+}
 
 
 
