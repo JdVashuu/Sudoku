@@ -57,6 +57,8 @@ body{
 }
 
 .child{
+    min-width: 50px;
+    min-height: 50px;
     background-color: #ebe0d4;
     outline: 1px solid darkolivegreen;
     display: flex;
