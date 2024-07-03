@@ -49,13 +49,16 @@ let activeBoard = false
 
 async function ActuallygenerateBoard() {
     console.log("Generating the sudoku");
+
     fillDiagonal();
     await fillRemaining(0, 0);
     removeElement();
     matrixConvert();
+
     console.log("Finished generating sudoku");
     activeBoard = true;
 
+    
 }
 
 function generateBoard(){
@@ -196,17 +199,96 @@ async function clearBoard(){
         setValue(i, ""); // Set empty string as the value for each tile
     }
     activeBoard = false;
-    //matrixConvert();
+    checkSolved = false;
 }
 
+function findEmptyCell(){
+    for(let i = 0; i < N; i++){
+        for(let j = 0; j < N; j++){
+            if(mat[i][j] === 0){
+                return [i, j];
+            }
+        }
+    }
+    return null;
+}
+
+function crossHatching(mat){
+    const possibilities = Array.from({length: N}, () => Array.from({length:N}, () => []));
+
+    for(let i = 0; i < N; i++){
+        for(let j = 0; j < N; j++){
+            if(mat[i][j] === 0){
+                for(let num = 1; num <= 9; num++){
+                    if(checkSafety(i, j, num)){
+                        possibilities[i][j].push(num);
+                    }
+                }
+            }
+        }
+    }
+    return possibilities;
+}
+
+function solveSudoku(){
+    const possibilities = crossHatching(mat);
+    return solveSudokuWithPossibilities(mat, possibilities);
+}
+
+function solveSudokuWithPossibilities(mat, possibilities){
+    const emptyCell = findEmptyCell(mat);
+    if(!emptyCell){
+        return true;
+    }
+    const [i, j] = emptyCell;
+    const nums = possibilities[i][j];
+
+    for(const num of nums){
+        if(checkSafety(i, j, num)){
+            mat[i][j] = num;
+            if(solveSudokuWithPossibilities(mat, possibilities)){
+                return true;
+            }
+            mat[i][j] = 0; //Backtrack
+        }
+    }
+    return false;
+}
+
+let checkSolved = false;
+function solveBoard(){
+
+    if (activeBoard === true && checkSolved === false) {
+        if (solveSudoku()) {  // Check if solving was successful
+            checkSolved = true;
+            matrixConvert();
+
+            console.log("attempting to solve");
+            console.log(mat);
+        } else {
+            console.log("No solution exists");
+        }
+    }else{
+        console.log("Either the board is not generated or it is already solved");
+    }
+
+}
+
+document.querySelectorAll('.child').forEach(div => {
+    div.addEventListener('click', function(){
+
+        if (this.classList.contains('clicked')) {
+            this.classList.remove('clicked');
+        } else {
+            document.querySelectorAll('.child.clicked').forEach(clickedDiv => {
+                clickedDiv.classList.remove('clicked');
+            });
+    
+            this.classList.toggle('clicked');
+        }
+    })
+})
 
 
 
 
-
-//when a div is clicked
-// document.querySelectorAll('.child').forEach(div => {
-//     div.addEventListener('click', function(){
-//         this.classList.toggle('clicked');
-//     });
-// });
