@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
 .outfit-fontt {
     font-family: "Outfit", sans-serif;
@@ -7,56 +7,55 @@
     font-style: normal;
 }
 
-body{
+body {
     font-family: "Outfit", sans-serif;
     height: 100vh;
-    background-color: #EBE3D5;
+    background-color: #ebe3d5;
 }
-.renderRegion{
+.renderRegion {
     margin-top: 150px;
     display: flex;
     align-items: center;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     flex-direction: row;
 }
 /* region1 */
-#region1{
+#region1 {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.buttons{
+.buttons {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
 }
-.Lcontrol{
+.Lcontrol {
     height: 70px;
     width: 250px;
-    background-color: #A67B5B;
+    background-color: #a67b5b;
     border-radius: 8px;
-    color: white;    
+    color: white;
     font-size: 30px;
 }
 
 /* region 2 */
-#grid-container{
+#grid-container {
     display: grid;
     grid-template-columns: repeat(3, auto);
     height: 450px;
     width: 450px;
 }
 
-.parent{
+.parent {
     display: grid;
     grid-template-columns: repeat(3, auto);
     outline: 2px solid black;
-
 }
 
-.child{
+.child {
     min-width: 50px;
     min-height: 50px;
     background-color: #ebe0d4;
@@ -65,57 +64,56 @@ body{
     align-items: center;
     justify-content: center;
 }
-.clicked{
+.clicked {
     background-color: white;
 }
 
 /* region 3 */
-#region3{
+#region3 {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.controls{
-   display: grid;
-   grid-template-columns: repeat(4, 1fr);
-   gap: 5px;
+.controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
 }
 
-#Rcontrols{
+.Rcontrols {
     height: 50px;
     width: 50px;
-    background-color: #A67B5B;
+    background-color: #a67b5b;
     border-radius: 8px;
-    color: white;   
+    color: white;
 }
 
-.span3{
+.span3 {
     width: 100%;
     height: 50px;
     grid-column: span 3;
-    background-color: #A67B5B;
+    background-color: #a67b5b;
     border-radius: 8px;
     color: white;
 }
 
 /* misc. */
-h1{
+h1 {
     text-align: center;
     font-size: 48px;
 }
 
-h2{
+h2 {
     font-size: 20px;
     font-weight: 150;
     text-align: center;
 }
 
-h3{
+h3 {
     margin-top: 0;
     font-size: 34px;
 }
-.child:hover{
+.child:hover {
     /* background-color: white; */
 }
-
