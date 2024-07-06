@@ -6,6 +6,7 @@ for (let i = 0; i < N; i++) {
   mat[i] = new Array(N);
   mat[i].fill(0);
 }
+let user_mat;
 
 //creating the board and giving each one of them unique ID
 const board = document.getElementById("grid-container");
@@ -37,6 +38,7 @@ function setValue(place, value) {
   } else {
     console.log(`tile with ID ${place} not found.`);
   }
+  return;
 }
 
 function rng() {
@@ -53,8 +55,26 @@ async function ActuallygenerateBoard() {
   removeElement();
   matrixConvert();
 
+  assignColour();
   console.log("Finished generating sudoku");
   activeBoard = true;
+
+  user_mat = mat.map((innerArray) => [...innerArray]);
+}
+
+function assignColour() {
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      if (mat[i][j] === 0) {
+        let parent = findParent(i, j);
+        let temp = (i % 3) * 3 + (j % 3);
+        let place = 9 * parent + temp;
+
+        let tile = document.getElementById(place);
+        tile.classList.add("editable");
+      }
+    }
+  }
 }
 
 function generateBoard() {
@@ -193,6 +213,12 @@ async function clearBoard() {
   }
   activeBoard = false;
   checkSolved = false;
+  document.querySelectorAll(".child.clicked").forEach((clickedDiv) => {
+    clickedDiv.classList.remove("clicked");
+  });
+  document.querySelectorAll(".child.editable").forEach((clickedDiv) => {
+    clickedDiv.classList.remove("editable");
+  });
 }
 
 function findEmptyCell() {
@@ -282,5 +308,62 @@ document.querySelectorAll(".child").forEach((div) => {
   });
 });
 
-//i want to add the functionality for user to input the values into the tile and that to be kept in a seperate matric.
-//later that matrix is matched with the predefind
+// Function to find the global position (i, j) from a given place
+function findPosition(place) {
+  place -= 1;
+  let parent = Math.floor(place / 9);
+
+  let localIndex = place % 9;
+  let localRow = Math.floor(localIndex / 3);
+  let localCol = localIndex % 3;
+
+  let row = Math.floor(parent / 3) * 3 + localRow;
+  let col = (parent % 3) * 3 + localCol;
+
+  return [row, col];
+}
+
+function inputVal(num) {
+  //make this smarter by only letting the empty places be valid to change
+  const selected_tile = document.querySelector(".clicked");
+  let place;
+
+  if (selected_tile) {
+    place = parseInt(selected_tile.id, 10);
+    let [i, j] = findPosition(place);
+
+    user_mat[i][j] = num;
+    console.log(user_mat);
+  } else {
+    console.log("no tile is selected!");
+  }
+
+  if (num !== 0) {
+    setValue(place, num);
+  } else if (num === 0) {
+    setValue(place, "");
+  }
+}
+
+function compareMatrices() {
+  //try to return true or false
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      if (user_mat[i][j] !== mat[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+//this is a test run of the keyboard  that i just recieved, looks good so far
+function checkSoln() {
+  let check = compareMatrices();
+  if (check === true) {
+    alert("you have successfully solved the board! congrats");
+  } else {
+    alert("the board seems incorrect");
+    showErrors();
+  }
+}

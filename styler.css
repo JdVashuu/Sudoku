@@ -65,7 +65,7 @@ body {
     justify-content: center;
 }
 .clicked {
-    background-color: white;
+    background-color: rgb(249, 219, 74);
 }
 
 /* region 3 */
@@ -114,6 +114,7 @@ h3 {
     margin-top: 0;
     font-size: 34px;
 }
-.child:hover {
-    /* background-color: white; */
+
+.editable {
+    background-color: white;
 }
